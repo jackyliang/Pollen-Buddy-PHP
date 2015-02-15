@@ -1,8 +1,10 @@
 <?php
 
+require_once("simple_html_dom.php");
+
 class PollenBuddy {
 
-    private $data;
+    private $html;
     private $city;
     private $zipcode;
     private $pollenType;
@@ -17,33 +19,8 @@ class PollenBuddy {
      * @return mixed   $data    Content of the site
      */
     public function PollenBuddy($zipcode) {
-
         $this->zipcode = $zipcode;
-
-        // Initialising cURL
-        $ch = curl_init();
-
-        // Setting cURL's URL option with the the Wunderground's pollen URL
-        // while appending the user's zipcode
-        curl_setopt(
-            $ch,
-            CURLOPT_URL,
-            PollenBuddy::WUNDERGROUND_URL . (int) $zipcode
-        );
-
-        // Setting cURL's option to return the webpage data
-        curl_setopt(
-            $ch,
-            CURLOPT_RETURNTRANSFER,
-            TRUE
-        );
-
-        // Executing the cURL request and assigning the returned data to the
-        // $data variable
-        $this->data = curl_exec($ch);
-
-        // Closing cURL
-        curl_close($ch);
+        $this->html = file_get_html(PollenBuddy::WUNDERGROUND_URL . $zipcode);
     }
 
     /**
@@ -51,7 +28,7 @@ class PollenBuddy {
      * @return mixed The site HTML
      */
     public function getSiteHTML() {
-        return $this->data;
+        return $this->html;
     }
 
     /**
@@ -59,6 +36,7 @@ class PollenBuddy {
      * @return String
      */
     public function getCity() {
+
         return $this->city;
     }
 
