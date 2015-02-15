@@ -7,7 +7,7 @@ class PollenBuddy {
     const WUNDERGROUND_URL = "http://www.wunderground.com/DisplayPollen.asp?Zipcode=";
 
     /**
-     * Get the content of the Wunderground pollen site page based on the
+     * Set the content of the Wunderground pollen site page based on the
      * user-entered zipcode
      * @param  Integer $zipcode An US-based zipcode
      * @return mixed   $data    Content of the site
@@ -38,5 +38,13 @@ class PollenBuddy {
 
         // Closing cURL
         curl_close($ch);
+    }
+
+    /**
+     * Get the site HTML
+     * @return mixed The site HTML
+     */
+    public function getSiteHTML() {
+        return $this->data;
     }
 }
