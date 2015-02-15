@@ -36,6 +36,10 @@ class PollenBuddy {
      * @return String
      */
     public function getCity() {
+        $rawCity = $this->html
+                        ->find("div.columns", 0)
+                        ->plaintext;
+        $this->city = substr($rawCity, 20);
 
         return $this->city;
     }
