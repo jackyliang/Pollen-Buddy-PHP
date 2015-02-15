@@ -4,16 +4,22 @@ require_once("simple_html_dom.php");
 
 class PollenBuddy {
 
+    // Class variables
     private $html;
     private $city;
     private $zipcode;
     private $pollenType;
     private $fourDayForecast;
 
+    // Wunderground's Pollen API with zipcode GET parameter
     const WUNDERGROUND_URL = "http://www.wunderground.com/DisplayPollen.asp?Zipcode=";
 
+    // Number of characters to strip before getting to the data
+    const CITY_HTML = 20;
+    const POLLEN_TYPE_HTML = 13;
+
     /**
-     * Set the content of the Wunderground pollen site page based on the
+     * Get the content of the Wunderground pollen site page based on the
      * user-entered zipcode
      * @param  Integer $zipcode An US-based zipcode
      * @return mixed   $data    Content of the site
@@ -36,10 +42,11 @@ class PollenBuddy {
      * @return String
      */
     public function getCity() {
+
         $rawCity = $this->html
                         ->find("div.columns", 0)
                         ->plaintext;
-        $this->city = substr($rawCity, 20);
+        $this->city = substr($rawCity, PollenBuddy::CITY_HTML);
 
         return $this->city;
     }
@@ -56,7 +63,17 @@ class PollenBuddy {
      * Get today's pollen type
      * @return String
      */
-    public function getTodayPollenType() {
+    public function getPollenType() {
+
+        $rawPollenType = $this->html
+                              ->find("div.panel h3", 0)
+                              ->plaintext;
+        $this->pollenType = substr(
+            $rawPollenType,
+            PollenBuddy::POLLEN_TYPE_HTML
+
+        );
+        
         return $this->pollenType;
     }
 
