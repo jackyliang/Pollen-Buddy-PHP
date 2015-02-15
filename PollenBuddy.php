@@ -19,7 +19,7 @@ class PollenBuddy {
     // Number of characters to strip before getting to the data
     const CITY_HTML = 20;
     const POLLEN_TYPE_HTML = 13;
-    const LEVELS = 6;
+    const LEVELS = 3;
     const DATES = 6;
 
     /**
@@ -125,7 +125,7 @@ class PollenBuddy {
     }
 
     /**
-     * TODO: Finish getting the four pollen levels
+     * TODO: clean the levels data
      * TODO: Set this as private and remove return once development is completed
      * Get four forecasted levels
      * @return array
@@ -137,7 +137,7 @@ class PollenBuddy {
 
             // Get the raw level
             $rawLevel = $this->html
-                ->find("td.text-center.even-four", $i)
+                ->find("td.even-four", $i)
                 ->plaintext;
 
             // Clean the raw level
