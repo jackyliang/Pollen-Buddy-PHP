@@ -24,6 +24,7 @@ class PollenBuddy {
     /**
      * Get the content of the Wunderground pollen site page based on the
      * user-entered zipcode
+     * TODO: Check for incorrect zipcodes i.e. missing DOMs
      * @param  Integer $zipcode An US-based zipcode
      * @return mixed   $data    Content of the site
      */
