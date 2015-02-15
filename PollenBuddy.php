@@ -20,6 +20,7 @@ class PollenBuddy {
     const CITY_HTML = 20;
     const POLLEN_TYPE_HTML = 13;
     const LEVELS = 6;
+    const DATES = 6;
 
     /**
      * Get the content of the Wunderground pollen site page based on the
@@ -114,7 +115,7 @@ class PollenBuddy {
             // Clean the raw date
             $date = substr(
                 $rawDate,
-                PollenBuddy::LEVELS
+                PollenBuddy::DATES
             );
 
             // Push each date to the dates array
@@ -130,6 +131,25 @@ class PollenBuddy {
      * @return array
      */
     public function getFourLevels() {
+        // Iterate through the four pollen levels [Wunderground only has four day
+        // pollen prediction]
+        for($i = 0; $i < 4; $i++) {
+
+            // Get the raw level
+            $rawLevel = $this->html
+                ->find("td.text-center.even-four", $i)
+                ->plaintext;
+
+            // Clean the raw level
+            $level = substr(
+                $rawLevel,
+                PollenBuddy::LEVELS
+            );
+
+            // Push each date to the levels array
+            array_push($this->levels, $level);
+        }
+
         return $this->levels;
     }
 }
