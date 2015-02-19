@@ -19,8 +19,6 @@ class PollenBuddy {
     // Number of characters to strip before getting to the data
     const CITY_HTML = 20;
     const POLLEN_TYPE_HTML = 13;
-    const LEVELS = 3;
-    const DATES = 6;
 
     /**
      * Get the content of the Wunderground pollen site page based on the
@@ -85,23 +83,10 @@ class PollenBuddy {
     }
 
     /**
-     * TODO: $this->levels is incomplete
      * Get the four day forecast data
      * @return mixed
      */
     public function getFourDayForecast() {
-        $this->fourDayForecast = array_merge(
-            $this->dates,
-            $this->levels
-        );
-    }
-
-    /**
-     * Get the four forecasted dates
-     * TODO: Set this as private and remove return once development is completed
-     * @return array Four forecasted dates
-     */
-    public function getFourDates() {
 
         // Iterate through the four dates [Wunderground only has four day
         // pollen prediction]
@@ -109,47 +94,41 @@ class PollenBuddy {
 
             // Get the raw date
             $rawDate = $this->html
-                ->find("td.levels", $i)
+                ->find("td.levels p", $i)
                 ->plaintext;
 
-            // Clean the raw date
-            $date = substr(
-                $rawDate,
-                PollenBuddy::DATES
-            );
+            // Get the raw level
+            $rawLevel = $this->html
+                ->find("td.even-four div", $i)
+                ->plaintext;
 
             // Push each date to the dates array
-            array_push($this->dates, $date);
+            array_push($this->dates, $rawDate);
+            // Push each date to the levels array
+            array_push($this->levels, $rawLevel);
         }
+
+        $this->fourDayForecast = array_combine(
+            $this->levels,
+            $this->dates
+        );
+
+        return $this->fourDayForecast;
+    }
+
+    /**
+     * Get the four forecasted dates
+     * @return array Four forecasted dates
+     */
+    public function getFourDates() {
         return $this->dates;
     }
 
     /**
-     * TODO: clean the levels data
-     * TODO: Set this as private and remove return once development is completed
      * Get four forecasted levels
-     * @return array
+     * @return array Four forecasted levels of each day's pollen levels.
      */
     public function getFourLevels() {
-        // Iterate through the four pollen levels [Wunderground only has four day
-        // pollen prediction]
-        for($i = 0; $i < 4; $i++) {
-
-            // Get the raw level
-            $rawLevel = $this->html
-                ->find("td.even-four", $i)
-                ->plaintext;
-
-            // Clean the raw level
-            $level = substr(
-                $rawLevel,
-                PollenBuddy::LEVELS
-            );
-
-            // Push each date to the levels array
-            array_push($this->levels, $level);
-        }
-
         return $this->levels;
     }
 }
