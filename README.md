@@ -6,9 +6,39 @@ A small and experimental Java Wunderground Pollen PHP library.
 
 Gets you four date pollen prediction in the United States using the Wunderground API using simply your zipcode.
 
-## This library gives you:
+## How to use:
 
-TBD
+Create a new PollenBuddy object with a valid five-digit United States zipcode
+
+`$data = new PollenBuddy(19104);`
+
+Get the raw Wunderground site HTML
+
+`$data->getSiteHTML();`
+
+Get the name of the city
+
+`$data->getCity();`
+
+Get the five-digit zipcode
+
+`$data->getZipCode();`
+
+Get today's primary pollen type
+
+`$data->getPollenType();`
+
+Get the four day forecast [`date` => `pollen level`]
+
+`$data->getFourDayForecast();`
+
+Get the four dates
+
+`$data->getFourDates();`
+
+Get the four pollen levels
+
+`$data->getFourLevels();`
 
 ## More Info You Don't Care About
 
