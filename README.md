@@ -6,6 +6,14 @@ A small and experimental Java Wunderground Pollen PHP library.
 
 Gets you four date pollen prediction in the United States using the Wunderground API using simply your zipcode.
 
+## Installation:
+
+`git clone https://github.com/jackyliang/Pollen-Buddy-PHP.git`
+
+Add this to your PHP file
+
+`require_once("PollenBuddy.php");`
+
 ## How to use:
 
 Create a new PollenBuddy object with a valid five-digit United States zipcode
