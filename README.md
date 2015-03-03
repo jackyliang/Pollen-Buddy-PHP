@@ -1,6 +1,11 @@
 # Pollen Buddy
 
-A small and experimental Java Wunderground Pollen PHP library.
+A small and experimental Java Wunderground Pollen PHP library. 
+
+**No longer actively maintained - please use as is. If you notice that
+the API is broken [due to changes to Wunderground], please make an issue
+[here](https://github.com/jackyliang/Pollen-Buddy-PHP/issues) and I
+will fix it.** 
 
 ## What it do:
 
